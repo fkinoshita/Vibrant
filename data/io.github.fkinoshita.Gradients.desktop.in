@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=gradients
+Exec=gradients
+Icon=io.github.fkinoshita.Gradients
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=true

@@ -1,0 +1,14 @@
+target/
+build/
+_build/
+builddir/
+build-aux/app
+.flatpak-builder
+src/config.rs
+*.ui.in~
+*.ui~
+.flatpak
+subprojects/libadwaita
+subprojects/gtksourceview
+.vscode
+.fenv

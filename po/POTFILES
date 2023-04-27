@@ -1,0 +1,4 @@
+data/io.github.fkinoshita.Gradients.desktop.in
+data/io.github.fkinoshita.Gradients.appdata.xml.in
+data/io.github.fkinoshita.Gradients.gschema.xml
+src/window.ui
