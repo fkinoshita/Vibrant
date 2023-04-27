@@ -104,6 +104,8 @@
                     <child>
                       <object class="GtkScale" id="angle_scale">
                         <property name="hexpand">true</property>
+                        <property name="draw-value">true</property>
+                        <property name="digits">0</property>
 
                         <property name="adjustment">
                           <object class="GtkAdjustment" id="angle_adjustment">
