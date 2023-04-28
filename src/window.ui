@@ -6,120 +6,178 @@
     <property name="default-height">550</property>
 
     <child>
-      <object class="GtkBox">
-        <property name="orientation">vertical</property>
+      <object class="AdwToastOverlay" id="toast_overlay">
 
         <child>
-          <object class="GtkHeaderBar" id="header_bar">
-
-            <style>
-              <class name="flat"/>
-            </style>
-
-            <child type="start">
-              <object class="GtkButton">
-
-                <style>
-                  <class name="flat"/>
-                </style>
-
-                <child>
-                  <object class="AdwButtonContent">
-                    <property name="label" translatable="yes">Export</property>
-                    <property name="tooltip-text" translatable="yes">Generate CSS Code</property>
-                    <property name="icon-name">arrow-into-box-symbolic</property>
-                  </object>
-                </child>
-
-              </object>
-            </child>
-
-            <child type="end">
-              <object class="GtkMenuButton">
-                <property name="primary">true</property>
-                <property name="icon-name">open-menu-symbolic</property>
-                <property name="menu-model">primary_menu</property>
-                <property name="tooltip-text" translatable="yes">Main Menu</property>
-              </object>
-            </child>
-
-          </object>
-        </child>
-
-        <child>
-          <object class="GtkBox">
-            <property name="orientation">vertical</property>
-            <property name="hexpand">true</property>
-            <property name="vexpand">true</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">18</property>
-            <property name="margin-start">18</property>
-            <property name="margin-end">18</property>
-            <property name="spacing">18</property>
+          <object class="AdwLeaflet" id="leaflet">
+            <property name="can-unfold">false</property>
 
             <child>
-              <object class="GtkOverlay" id="gradient_overlay">
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
 
-                <property name="child">
-                  <object class="GtkBox" id="gradient_box">
-                    <property name="hexpand">true</property>
-                    <property name="vexpand">true</property>
+                <child>
+                  <object class="GtkHeaderBar" id="header_bar">
 
                     <style>
-                      <class name="card"/>
-                      <class name="gradient-box"/>
+                      <class name="flat"/>
                     </style>
 
-                  </object>
-                </property>
+                    <child type="start">
+                      <object class="GtkButton">
 
-              </object>
-            </child>
+                        <style>
+                          <class name="flat"/>
+                        </style>
 
-            <child>
-              <object class="AdwPreferencesGroup">
-                <property name="title" translatable="yes">Properties</property>
+                        <child>
+                          <object class="AdwButtonContent">
+                            <property name="label" translatable="yes">Export</property>
+                            <property name="tooltip-text" translatable="yes">Generate CSS Code</property>
+                            <property name="icon-name">arrow-into-box-symbolic</property>
+                          </object>
+                        </child>
 
-                <child>
-                  <object class="AdwComboRow" id="type_combo">
-                    <property name="title" translatable="yes">Gradient Type</property>
-
-                    <property name="model">
-                      <object class="GtkStringList">
-                        <items>
-                          <item translatable="yes">Linear</item>
-                          <item translatable="yes">Radial</item>
-                          <item translatable="yes">Conic</item>
-                        </items>
                       </object>
-                    </property>
+                    </child>
+
+                    <child type="end">
+                      <object class="GtkMenuButton">
+                        <property name="primary">true</property>
+                        <property name="icon-name">open-menu-symbolic</property>
+                        <property name="menu-model">primary_menu</property>
+                        <property name="tooltip-text" translatable="yes">Main Menu</property>
+                      </object>
+                    </child>
 
                   </object>
                 </child>
 
                 <child>
-                  <object class="AdwActionRow" id="angle_row">
-                    <property name="title" translatable="yes">Angle</property>
-                    <property name="activatable_widget">angle_scale</property>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="hexpand">true</property>
+                    <property name="vexpand">true</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">18</property>
+                    <property name="margin-start">18</property>
+                    <property name="margin-end">18</property>
+                    <property name="spacing">18</property>
 
                     <child>
-                      <object class="GtkScale" id="angle_scale">
-                        <property name="hexpand">true</property>
-                        <property name="draw-value">true</property>
-                        <property name="digits">0</property>
+                      <object class="GtkOverlay" id="gradient_overlay">
 
-                        <property name="adjustment">
-                          <object class="GtkAdjustment" id="angle_adjustment">
-                            <property name="lower">0</property>
-                            <property name="upper">360</property>
-                            <property name="value">45</property>
-                            <property name="page-increment">10</property>
-                            <property name="step-increment">1</property>
+                        <property name="child">
+                          <object class="GtkBox" id="gradient_box">
+                            <property name="hexpand">true</property>
+                            <property name="vexpand">true</property>
+
+                            <style>
+                              <class name="card"/>
+                              <class name="gradient-box"/>
+                            </style>
+
                           </object>
                         </property>
 
                       </object>
                     </child>
+
+                    <child>
+                      <object class="AdwPreferencesGroup">
+                        <property name="title" translatable="yes">Properties</property>
+
+                        <child>
+                          <object class="AdwComboRow" id="type_combo">
+                            <property name="title" translatable="yes">Gradient Type</property>
+
+                            <property name="model">
+                              <object class="GtkStringList">
+                                <items>
+                                  <item translatable="yes">Linear</item>
+                                  <item translatable="yes">Radial</item>
+                                  <item translatable="yes">Conic</item>
+                                </items>
+                              </object>
+                            </property>
+
+                          </object>
+                        </child>
+
+                        <child>
+                          <object class="AdwActionRow" id="angle_row">
+                            <property name="title" translatable="yes">Angle</property>
+                            <property name="activatable_widget">angle_scale</property>
+
+                            <child>
+                              <object class="GtkScale" id="angle_scale">
+                                <property name="hexpand">true</property>
+                                <property name="draw-value">true</property>
+                                <property name="digits">0</property>
+
+                                <property name="adjustment">
+                                  <object class="GtkAdjustment" id="angle_adjustment">
+                                    <property name="lower">0</property>
+                                    <property name="upper">360</property>
+                                    <property name="value">45</property>
+                                    <property name="page-increment">10</property>
+                                    <property name="step-increment">1</property>
+                                  </object>
+                                </property>
+
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+
+                        <child>
+                          <object class="AdwActionRow" id="colors_row">
+                            <property name="title" translatable="yes">Colors</property>
+                          </object>
+                        </child>
+
+                      </object>
+                    </child>
+
+                  </object>
+                </child>
+
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+
+                <child>
+                  <object class="GtkHeaderBar">
+
+                    <property name="title-widget">
+                      <object class="AdwWindowTitle">
+                        <property name="title" translatable="yes">Colors</property>
+                      </object>
+                    </property>
+
+                    <style>
+                      <class name="flat"/>
+                    </style>
+
+                    <child type="start">
+                      <object class="GtkButton" id="back_button">
+                        <property name="icon-name">go-previous-symbolic</property>
+                        <property name="tooltip-text" translatable="yes">Back</property>
+                      </object>
+                    </child>
+
+                    <child type="end">
+                      <object class="GtkMenuButton">
+                        <property name="primary">true</property>
+                        <property name="icon-name">open-menu-symbolic</property>
+                        <property name="menu-model">primary_menu</property>
+                        <property name="tooltip-text" translatable="yes">Main Menu</property>
+                      </object>
+                    </child>
+
                   </object>
                 </child>
 

@@ -34,6 +34,11 @@ mod imp {
     pub struct VibrantWindow {
         // Template widgets
         #[template_child]
+        pub toast_overlay: TemplateChild<adw::ToastOverlay>,
+        #[template_child]
+        pub leaflet: TemplateChild<adw::Leaflet>,
+
+        #[template_child]
         pub gradient_box: TemplateChild<gtk::Box>,
         #[template_child]
         pub gradient_overlay: TemplateChild<gtk::Overlay>,
@@ -45,6 +50,13 @@ mod imp {
         pub angle_row: TemplateChild<adw::ActionRow>,
         #[template_child]
         pub angle_adjustment: TemplateChild<gtk::Adjustment>,
+
+        #[template_child]
+        pub colors_row: TemplateChild<adw::ActionRow>,
+        pub colors_button: gtk::Button,
+
+        #[template_child]
+        pub back_button: TemplateChild<gtk::Button>,
     }
 
     #[glib::object_subclass]
@@ -87,7 +99,14 @@ impl VibrantWindow {
     }
 
     fn init(&self) {
-        // let imp = self.imp();
+        let imp = self.imp();
+
+        let icon = gtk::Image::builder()
+            .icon_name("go-next-symbolic")
+            .build();
+
+        imp.colors_row.add_suffix(&icon);
+        imp.colors_row.set_activatable_widget(Some(&imp.colors_button));
     }
 
     fn setup_signals(&self) {
@@ -120,6 +139,18 @@ impl VibrantWindow {
                 let degrees = adjust.value().floor();
 
                 this.set_gradient_css(format!(".gradient-box {{background: linear-gradient({}deg, blue, pink);}}", degrees).trim());
+            })
+        );
+
+        imp.colors_row.connect_activated(
+            clone!(@strong self as this => move |_row| {
+                this.imp().leaflet.navigate(adw::NavigationDirection::Forward);
+            })
+        );
+
+        imp.back_button.connect_clicked(
+            clone!(@strong self as this => move |_button| {
+                this.imp().leaflet.navigate(adw::NavigationDirection::Back);
             })
         );
     }
