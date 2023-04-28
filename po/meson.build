@@ -1,1 +1,1 @@
-i18n.gettext('gradients', preset: 'glib')
+i18n.gettext('vibrant', preset: 'glib')

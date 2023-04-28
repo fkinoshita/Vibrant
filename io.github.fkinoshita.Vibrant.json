@@ -1,12 +1,12 @@
 {
-    "app-id": "io.github.fkinoshita.Gradients",
+    "app-id": "io.github.fkinoshita.Vibrant",
     "runtime": "org.gnome.Platform",
     "runtime-version": "44",
     "sdk": "org.gnome.Sdk",
     "sdk-extensions": [
         "org.freedesktop.Sdk.Extension.rust-stable"
     ],
-    "command": "gradients",
+    "command": "vibrant",
     "finish-args": [
         "--share=network",
         "--share=ipc",
@@ -21,7 +21,7 @@
         ],
         "env": {
             "RUST_BACKTRACE" : "1",
-            "RUST_LOG" : "gradients=debug"
+            "RUST_LOG" : "vibrant=debug"
         }
     },
     "cleanup": [
@@ -37,13 +37,13 @@
     ],
     "modules": [
         {
-            "name": "gradients",
+            "name": "vibrant",
             "builddir": true,
             "buildsystem": "meson",
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://github.com/fkinoshita/Gradients.git",
+                    "url": "https://github.com/fkinoshita/Vibrant.git",
                     "branch": "main"
                 }
             ]

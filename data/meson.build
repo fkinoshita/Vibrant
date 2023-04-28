@@ -1,6 +1,6 @@
 desktop_file = i18n.merge_file(
-        input: 'io.github.fkinoshita.Gradients.desktop.in',
-       output: 'io.github.fkinoshita.Gradients.desktop',
+        input: 'io.github.fkinoshita.Vibrant.desktop.in',
+       output: 'io.github.fkinoshita.Vibrant.desktop',
          type: 'desktop',
        po_dir: '../po',
       install: true,
@@ -13,8 +13,8 @@ if desktop_utils.found()
 endif
 
 appstream_file = i18n.merge_file(
-        input: 'io.github.fkinoshita.Gradients.appdata.xml.in',
-       output: 'io.github.fkinoshita.Gradients.appdata.xml',
+        input: 'io.github.fkinoshita.Vibrant.appdata.xml.in',
+       output: 'io.github.fkinoshita.Vibrant.appdata.xml',
        po_dir: '../po',
       install: true,
   install_dir: join_paths(get_option('datadir'), 'appdata')
@@ -25,7 +25,7 @@ if appstream_util.found()
   test('Validate appstream file', appstream_util, args: ['validate', appstream_file])
 endif
 
-install_data('io.github.fkinoshita.Gradients.gschema.xml',
+install_data('io.github.fkinoshita.Vibrant.gschema.xml',
   install_dir: join_paths(get_option('datadir'), 'glib-2.0/schemas')
 )
 

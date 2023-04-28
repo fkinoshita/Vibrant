@@ -1,5 +1,5 @@
-# Gradients
+# Vibrant
 
-Gradients is a simple CSS gradient generator.
+Vibrant is a simple CSS gradient generator.
 
-![screenshot](/data/screenshots/gradients.png)
+![screenshot](/data/screenshots/vibrant.png)

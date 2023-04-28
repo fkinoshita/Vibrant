@@ -24,22 +24,22 @@ use gtk::{gio, glib};
 use adw::subclass::prelude::*;
 
 use crate::config::VERSION;
-use crate::GradientsWindow;
+use crate::VibrantWindow;
 
 mod imp {
     use super::*;
 
     #[derive(Debug, Default)]
-    pub struct GradientsApplication {}
+    pub struct VibrantApplication {}
 
     #[glib::object_subclass]
-    impl ObjectSubclass for GradientsApplication {
-        const NAME: &'static str = "GradientsApplication";
-        type Type = super::GradientsApplication;
+    impl ObjectSubclass for VibrantApplication {
+        const NAME: &'static str = "VibrantApplication";
+        type Type = super::VibrantApplication;
         type ParentType = adw::Application;
     }
 
-    impl ObjectImpl for GradientsApplication {
+    impl ObjectImpl for VibrantApplication {
         fn constructed(&self) {
             self.parent_constructed();
             let obj = self.obj();
@@ -49,7 +49,7 @@ mod imp {
         }
     }
 
-    impl ApplicationImpl for GradientsApplication {
+    impl ApplicationImpl for VibrantApplication {
         // We connect to the activate callback to create a window when the application
         // has been launched. Additionally, this callback notifies us when the user
         // tries to launch a "second instance" of the application. When they try
@@ -60,7 +60,7 @@ mod imp {
             let window = if let Some(window) = application.active_window() {
                 window
             } else {
-                let window = GradientsWindow::new(&*application);
+                let window = VibrantWindow::new(&*application);
                 window.upcast()
             };
 
@@ -69,17 +69,17 @@ mod imp {
         }
     }
 
-    impl GtkApplicationImpl for GradientsApplication {}
-    impl AdwApplicationImpl for GradientsApplication {}
+    impl GtkApplicationImpl for VibrantApplication {}
+    impl AdwApplicationImpl for VibrantApplication {}
 }
 
 glib::wrapper! {
-    pub struct GradientsApplication(ObjectSubclass<imp::GradientsApplication>)
+    pub struct VibrantApplication(ObjectSubclass<imp::VibrantApplication>)
         @extends gio::Application, gtk::Application, adw::Application,
         @implements gio::ActionGroup, gio::ActionMap;
 }
 
-impl GradientsApplication {
+impl VibrantApplication {
     pub fn new(application_id: &str, flags: &gio::ApplicationFlags) -> Self {
         glib::Object::builder()
             .property("application-id", application_id)
@@ -101,8 +101,8 @@ impl GradientsApplication {
         let window = self.active_window().unwrap();
         let about = adw::AboutWindow::builder()
             .transient_for(&window)
-            .application_name("Gradients")
-            .application_icon("io.github.fkinoshita.Gradients")
+            .application_name("Vibrant")
+            .application_icon("io.github.fkinoshita.Vibrant")
             .developer_name("Felipe Kinoshita")
             .version(VERSION)
             .developers(vec!["Felipe Kinoshita"])

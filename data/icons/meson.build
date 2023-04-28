@@ -1,4 +1,4 @@
-application_id = 'io.github.fkinoshita.Gradients'
+application_id = 'io.github.fkinoshita.Vibrant'
 
 scalable_dir = join_paths('hicolor', 'scalable', 'apps')
 install_data(

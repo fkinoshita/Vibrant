@@ -1,8 +1,8 @@
 pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
 gnome = import('gnome')
 
-gnome.compile_resources('gradients',
-  'gradients.gresource.xml',
+gnome.compile_resources('vibrant',
+  'vibrant.gresource.xml',
   gresource_bundle: true,
   install: true,
   install_dir: pkgdatadir,
@@ -10,7 +10,7 @@ gnome.compile_resources('gradients',
 
 conf = configuration_data()
 conf.set_quoted('VERSION', meson.project_version())
-conf.set_quoted('GETTEXT_PACKAGE', 'gradients')
+conf.set_quoted('GETTEXT_PACKAGE', 'vibrant')
 conf.set_quoted('LOCALEDIR', join_paths(get_option('prefix'), get_option('localedir')))
 conf.set_quoted('PKGDATADIR', pkgdatadir)
 

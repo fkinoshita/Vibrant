@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=gradients
-Exec=gradients
-Icon=io.github.fkinoshita.Gradients
+Name=Vibrant
+Exec=vibrant
+Icon=io.github.fkinoshita.Vibrant
 Terminal=false
 Type=Application
 Categories=GTK;

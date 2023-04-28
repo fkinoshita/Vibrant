@@ -30,8 +30,8 @@ mod imp {
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
-    #[template(resource = "/io/github/fkinoshita/Gradients/window.ui")]
-    pub struct GradientsWindow {
+    #[template(resource = "/io/github/fkinoshita/Vibrant/window.ui")]
+    pub struct VibrantWindow {
         // Template widgets
         #[template_child]
         pub gradient_box: TemplateChild<gtk::Box>,
@@ -48,9 +48,9 @@ mod imp {
     }
 
     #[glib::object_subclass]
-    impl ObjectSubclass for GradientsWindow {
-        const NAME: &'static str = "GradientsWindow";
-        type Type = super::GradientsWindow;
+    impl ObjectSubclass for VibrantWindow {
+        const NAME: &'static str = "VibrantWindow";
+        type Type = super::VibrantWindow;
         type ParentType = adw::ApplicationWindow;
 
         fn class_init(klass: &mut Self::Class) {
@@ -62,21 +62,21 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for GradientsWindow {}
-    impl WidgetImpl for GradientsWindow {}
-    impl WindowImpl for GradientsWindow {}
-    impl ApplicationWindowImpl for GradientsWindow {}
-    impl AdwApplicationWindowImpl for GradientsWindow {}
+    impl ObjectImpl for VibrantWindow {}
+    impl WidgetImpl for VibrantWindow {}
+    impl WindowImpl for VibrantWindow {}
+    impl ApplicationWindowImpl for VibrantWindow {}
+    impl AdwApplicationWindowImpl for VibrantWindow {}
 }
 
 glib::wrapper! {
-    pub struct GradientsWindow(ObjectSubclass<imp::GradientsWindow>)
+    pub struct VibrantWindow(ObjectSubclass<imp::VibrantWindow>)
         @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, adw::ApplicationWindow,        @implements gio::ActionGroup, gio::ActionMap;
 }
 
-impl GradientsWindow {
+impl VibrantWindow {
     pub fn new<P: glib::IsA<gtk::Application>>(application: &P) -> Self {
-        let win: GradientsWindow = glib::Object::builder()
+        let win: VibrantWindow = glib::Object::builder()
             .property("application", application)
             .build();
 
