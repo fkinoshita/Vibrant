@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Vibrant
+Comment=A CSS gradient generator for GNOME
 Exec=vibrant
 Icon=io.github.fkinoshita.Vibrant
 Terminal=false
