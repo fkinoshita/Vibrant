@@ -9,6 +9,7 @@ gnome.compile_resources('vibrant',
 )
 
 conf = configuration_data()
+conf.set_quoted('PROFILE', profile)
 conf.set_quoted('VERSION', meson.project_version())
 conf.set_quoted('GETTEXT_PACKAGE', 'vibrant')
 conf.set_quoted('LOCALEDIR', join_paths(get_option('prefix'), get_option('localedir')))

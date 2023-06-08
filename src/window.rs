@@ -26,6 +26,8 @@ use gtk::{gio, glib};
 use adw::subclass::prelude::*;
 use adw::prelude::*;
 
+use crate::config::{PROFILE};
+
 pub enum Direction {
     Left,
     Right,
@@ -112,6 +114,10 @@ impl VibrantWindow {
 
     fn init(&self) {
         let imp = self.imp();
+
+        if PROFILE == "Devel" {
+            self.add_css_class("devel");
+        }
 
         imp.color_one_entry.set_text("blue");
         imp.color_two_entry.set_text("pink");
