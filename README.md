@@ -12,3 +12,8 @@
 
 Vibrant is a simple app for generation CSS gradients.
 
+## Code of conduct
+
+Vibrant follows the GNOME project [Code of Conduct](./code-of-conduct.md). All
+communications in project spaces, such as the issue tracker are expected to follow it.
+
