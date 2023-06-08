@@ -26,6 +26,25 @@ use gtk::{gio, glib};
 use adw::subclass::prelude::*;
 use adw::prelude::*;
 
+pub enum Direction {
+    Left,
+    Right,
+    Top,
+    Bottom
+}
+
+impl Direction {
+    fn from_u32(value: u32) -> Direction {
+        match value {
+            0 => Direction::Left,
+            1 => Direction::Right,
+            2 => Direction::Top,
+            3 => Direction::Bottom,
+            _ => panic!("Unknown value: {}", value),
+        }
+    }
+}
+
 mod imp {
     use super::*;
 
@@ -36,7 +55,7 @@ mod imp {
         #[template_child]
         pub toast_overlay: TemplateChild<adw::ToastOverlay>,
         #[template_child]
-        pub leaflet: TemplateChild<adw::Leaflet>,
+        pub navigation_view: TemplateChild<adw::NavigationView>,
 
         #[template_child]
         pub gradient_box: TemplateChild<gtk::Box>,
@@ -44,19 +63,12 @@ mod imp {
         pub gradient_overlay: TemplateChild<gtk::Overlay>,
 
         #[template_child]
-        pub type_combo: TemplateChild<adw::ComboRow>,
+        pub direction_combo: TemplateChild<adw::ComboRow>,
 
         #[template_child]
-        pub angle_row: TemplateChild<adw::ActionRow>,
+        pub color_one_entry: TemplateChild<adw::EntryRow>,
         #[template_child]
-        pub angle_adjustment: TemplateChild<gtk::Adjustment>,
-
-        #[template_child]
-        pub colors_row: TemplateChild<adw::ActionRow>,
-        pub colors_button: gtk::Button,
-
-        #[template_child]
-        pub back_button: TemplateChild<gtk::Button>,
+        pub color_two_entry: TemplateChild<adw::EntryRow>,
     }
 
     #[glib::object_subclass]
@@ -101,63 +113,67 @@ impl VibrantWindow {
     fn init(&self) {
         let imp = self.imp();
 
-        let icon = gtk::Image::builder()
-            .icon_name("go-next-symbolic")
-            .build();
-
-        imp.colors_row.add_suffix(&icon);
-        imp.colors_row.set_activatable_widget(Some(&imp.colors_button));
+        imp.color_one_entry.set_text("blue");
+        imp.color_two_entry.set_text("pink");
     }
 
     fn setup_signals(&self) {
         let imp = self.imp();
 
-        imp.type_combo.connect_notify_local(Some("selected"),
+        imp.direction_combo.connect_notify_local(Some("selected"),
             clone!(@strong self as this => move |combo, _| {
-                this.imp().angle_row.set_visible(false);
+                let selected_direction = Direction::from_u32(combo.selected());
 
-                if combo.selected() == 0 {
-                    this.set_gradient_css(format!(".gradient-box {{background: linear-gradient({}deg, blue, pink);}}", 45).trim());
-                    this.imp().angle_row.set_visible(true);
-                    return;
-                }
+                let color1 = this.imp().color_one_entry.text();
+                let color2 = this.imp().color_two_entry.text();
 
-                if combo.selected() == 1 {
-                    this.set_gradient_css(format!(".gradient-box {{background: radial-gradient(blue, pink);}}").trim());
-                    return;
-                }
-
-                if combo.selected() == 2 {
-                    this.set_gradient_css(format!(".gradient-box {{background: conic-gradient(blue, pink);}}").trim());
-                    return;
+                match selected_direction {
+                    Direction::Left => this.set_gradient_css(270, &color1.as_str(), &color2.as_str()),
+                    Direction::Right => this.set_gradient_css(90, &color1.as_str(), &color2.as_str()),
+                    Direction::Top => this.set_gradient_css(180, &color1.as_str(), &color2.as_str()),
+                    Direction::Bottom => this.set_gradient_css(0, &color1.as_str(), &color2.as_str()),
                 }
             })
         );
 
-        imp.angle_adjustment.connect_value_changed(
-            clone!(@strong self as this => move |adjust| {
-                let degrees = adjust.value().floor();
+        imp.color_one_entry.connect_notify_local(Some("text"),
+            clone!(@strong self as this => move |entry, _| {
+                let color1 = entry.text();
+                let color2 = this.imp().color_two_entry.text();
+                let direction = Direction::from_u32(this.imp().direction_combo.selected());
 
-                this.set_gradient_css(format!(".gradient-box {{background: linear-gradient({}deg, blue, pink);}}", degrees).trim());
+                match direction {
+                    Direction::Left => this.set_gradient_css(270, &color1.as_str(), &color2.as_str()),
+                    Direction::Right => this.set_gradient_css(90, &color1.as_str(), &color2.as_str()),
+                    Direction::Top => this.set_gradient_css(180, &color1.as_str(), &color2.as_str()),
+                    Direction::Bottom => this.set_gradient_css(0, &color1.as_str(), &color2.as_str()),
+                }
             })
         );
 
-        imp.colors_row.connect_activated(
-            clone!(@strong self as this => move |_row| {
-                this.imp().leaflet.navigate(adw::NavigationDirection::Forward);
-            })
-        );
+        imp.color_two_entry.connect_notify_local(Some("text"),
+            clone!(@strong self as this => move |entry, _| {
+                let color1 = this.imp().color_one_entry.text();
+                let color2 = entry.text();
 
-        imp.back_button.connect_clicked(
-            clone!(@strong self as this => move |_button| {
-                this.imp().leaflet.navigate(adw::NavigationDirection::Back);
+                let direction = Direction::from_u32(this.imp().direction_combo.selected());
+
+                match direction {
+                    Direction::Left => this.set_gradient_css(270, &color1.as_str(), &color2.as_str()),
+                    Direction::Right => this.set_gradient_css(90, &color1.as_str(), &color2.as_str()),
+                    Direction::Top => this.set_gradient_css(180, &color1.as_str(), &color2.as_str()),
+                    Direction::Bottom => this.set_gradient_css(0, &color1.as_str(), &color2.as_str()),
+                }
             })
         );
     }
 
-    fn set_gradient_css(&self, css: &str) {
+    fn set_gradient_css(&self, degrees: u16, color1: &str, color2: &str) {
         let provider = gtk::CssProvider::new();
-        provider.load_from_data(css);
+
+        let css = format!(".gradient-box {{background: linear-gradient({}deg, {}, {});}}", degrees, color1, color2);
+
+        provider.load_from_data(css.as_str());
 
         self.imp().gradient_box.style_context().add_provider(&provider, 1000);
     }
