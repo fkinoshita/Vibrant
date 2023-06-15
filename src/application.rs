@@ -18,6 +18,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+use gettextrs::gettext;
 use gtk::prelude::*;
 use gtk::{gio, glib};
 
@@ -104,7 +105,7 @@ impl VibrantApplication {
             .application_name("Vibrant")
             .application_icon("io.github.fkinoshita.Vibrant")
             .developer_name("Felipe Kinoshita")
-            .comments("Generate CSS gradients")
+            .comments(gettext("Generate CSS gradients"))
             .version(VERSION)
             .developers(vec!["Felipe Kinoshita"])
             .copyright("© 2023 Felipe Kinoshita")
