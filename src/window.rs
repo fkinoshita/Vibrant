@@ -28,34 +28,6 @@ use adw::subclass::prelude::*;
 
 use crate::config::PROFILE;
 
-pub enum Direction {
-    Left,
-    Right,
-    Top,
-    Bottom,
-}
-
-impl Direction {
-    fn from_u32(value: u32) -> Direction {
-        match value {
-            0 => Direction::Left,
-            1 => Direction::Right,
-            2 => Direction::Top,
-            3 => Direction::Bottom,
-            _ => panic!("Unknown value: {}", value),
-        }
-    }
-
-    fn degree(&self) -> u16 {
-        match self {
-            Direction::Left => 270,
-            Direction::Right => 90,
-            Direction::Top => 180,
-            Direction::Bottom => 0,
-        }
-    }
-}
-
 mod imp {
     use super::*;
 
@@ -130,6 +102,11 @@ impl VibrantWindow {
 
         imp.color_one_entry.set_text("blue");
         imp.color_two_entry.set_text("pink");
+        self.set_gradient_css(
+            (self.imp().direction_combo.selected() * 90) as u16,
+            "blue",
+            "pink",
+        );
     }
 
     fn setup_signals(&self) {
@@ -138,12 +115,11 @@ impl VibrantWindow {
         imp.direction_combo.connect_notify_local(
             Some("selected"),
             clone!(@strong self as this => move |combo, _| {
-                let selected_direction = Direction::from_u32(combo.selected());
 
                 let color1 = this.imp().color_one_entry.text();
                 let color2 = this.imp().color_two_entry.text();
 
-                this.set_gradient_css(selected_direction.degree(), &color1, &color2);
+                this.set_gradient_css((dbg!(dbg!(combo.selected()) * 90)) as u16, &color1, &color2);
             }),
         );
 
@@ -152,9 +128,8 @@ impl VibrantWindow {
             clone!(@strong self as this => move |entry, _| {
                 let color1 = entry.text();
                 let color2 = this.imp().color_two_entry.text();
-                let direction = Direction::from_u32(this.imp().direction_combo.selected());
 
-                this.set_gradient_css(direction.degree(), &color1, &color2);
+                this.set_gradient_css((this.imp().direction_combo.selected() * 90) as u16, &color1, &color2);
             }),
         );
 
@@ -164,9 +139,8 @@ impl VibrantWindow {
                 let color1 = this.imp().color_one_entry.text();
                 let color2 = entry.text();
 
-                let direction = Direction::from_u32(this.imp().direction_combo.selected());
 
-                this.set_gradient_css(direction.degree(), &color1, &color2);
+                this.set_gradient_css((this.imp().direction_combo.selected() * 90) as u16, &color1, &color2);
             }),
         );
     }

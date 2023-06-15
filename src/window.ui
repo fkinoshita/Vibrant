@@ -87,10 +87,10 @@
                                 <property name="model">
                                   <object class="GtkStringList">
                                     <items>
-                                      <item translatable="yes">To Left</item>
-                                      <item translatable="yes">To Right</item>
-                                      <item translatable="yes">To Top</item>
-                                      <item translatable="yes">To Bottom</item>
+                                      <item translatable="yes">Bottom</item>
+                                      <item translatable="yes">Right</item>
+                                      <item translatable="yes">Top</item>
+                                      <item translatable="yes">Left</item>
                                     </items>
                                   </object>
                                 </property>
