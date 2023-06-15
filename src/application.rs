@@ -106,6 +106,7 @@ impl VibrantApplication {
             .application_icon("io.github.fkinoshita.Vibrant")
             .developer_name("Felipe Kinoshita")
             .comments(gettext("Generate CSS gradients"))
+            .license_type(gtk::License::Gpl30)
             .version(VERSION)
             .developers(vec!["Felipe Kinoshita"])
             .copyright("© 2023 Felipe Kinoshita")
