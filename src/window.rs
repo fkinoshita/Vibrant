@@ -102,11 +102,7 @@ impl VibrantWindow {
 
         imp.color_one_entry.set_text("blue");
         imp.color_two_entry.set_text("pink");
-        self.set_gradient_css(
-            (self.imp().direction_combo.selected() * 90) as u16,
-            "blue",
-            "pink",
-        );
+        self.update_gradient();
     }
 
     fn setup_signals(&self) {
@@ -114,43 +110,35 @@ impl VibrantWindow {
 
         imp.direction_combo.connect_notify_local(
             Some("selected"),
-            clone!(@strong self as this => move |combo, _| {
-
-                let color1 = this.imp().color_one_entry.text();
-                let color2 = this.imp().color_two_entry.text();
-
-                this.set_gradient_css((dbg!(dbg!(combo.selected()) * 90)) as u16, &color1, &color2);
+            clone!(@strong self as this => move |_combo, _| {
+                this.update_gradient();
             }),
         );
 
         imp.color_one_entry.connect_notify_local(
             Some("text"),
-            clone!(@strong self as this => move |entry, _| {
-                let color1 = entry.text();
-                let color2 = this.imp().color_two_entry.text();
-
-                this.set_gradient_css((this.imp().direction_combo.selected() * 90) as u16, &color1, &color2);
+            clone!(@strong self as this => move |_entry, _| {
+                this.update_gradient();
             }),
         );
 
         imp.color_two_entry.connect_notify_local(
             Some("text"),
-            clone!(@strong self as this => move |entry, _| {
-                let color1 = this.imp().color_one_entry.text();
-                let color2 = entry.text();
-
-
-                this.set_gradient_css((this.imp().direction_combo.selected() * 90) as u16, &color1, &color2);
+            clone!(@strong self as this => move |_entry, _| {
+                this.update_gradient();
             }),
         );
     }
 
-    fn set_gradient_css(&self, degrees: u16, color1: &str, color2: &str) {
+    fn update_gradient(&self) {
+        let imp = self.imp();
         let provider = gtk::CssProvider::new();
 
         let css = format!(
             ".gradient-box {{background: linear-gradient({}deg, {}, {});}}",
-            degrees, color1, color2
+            imp.direction_combo.selected() as u16 * 90,
+            imp.color_one_entry.text(),
+            imp.color_two_entry.text()
         );
 
         provider.load_from_data(css.as_str());
