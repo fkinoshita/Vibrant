@@ -166,7 +166,11 @@ impl VibrantWindow {
         let gradient = match gradient_type {
             GradientType::Linear => format!("linear-gradient({}deg,", degree),
             GradientType::Radial => "radial-gradient(".to_owned(),
-            GradientType::Conic => format!("conic-gradient(from {}deg,", degree),
+            GradientType::Conic => format!(
+                "conic-gradient(from {}deg,",
+                //adjust degree to only switch bottom and top direction
+                degree + (degree % 180 == 0) as u16 * 180
+            ),
         };
 
         let css = format!(
