@@ -28,6 +28,24 @@ use adw::subclass::prelude::*;
 
 use crate::config::PROFILE;
 
+#[derive(Debug, Copy, Clone)]
+enum GradientType {
+    Linear,
+    Radial,
+    Conic,
+}
+
+impl From<u32> for GradientType {
+    fn from(value: u32) -> Self {
+        match value {
+            1 => GradientType::Radial,
+            2 => GradientType::Conic,
+            //default to Linear, including 0
+            _ => GradientType::Linear,
+        }
+    }
+}
+
 mod imp {
     use super::*;
 
@@ -47,6 +65,8 @@ mod imp {
 
         #[template_child]
         pub direction_combo: TemplateChild<adw::ComboRow>,
+        #[template_child]
+        pub gradient_combo: TemplateChild<adw::ComboRow>,
 
         #[template_child]
         pub color_one_entry: TemplateChild<adw::EntryRow>,
@@ -108,6 +128,12 @@ impl VibrantWindow {
     fn setup_signals(&self) {
         let imp = self.imp();
 
+        imp.gradient_combo.connect_selected_item_notify(
+            clone!(@strong self as this => move |_combo| {
+                this.update_gradient();
+            }),
+        );
+
         imp.direction_combo.connect_notify_local(
             Some("selected"),
             clone!(@strong self as this => move |_combo, _| {
@@ -134,9 +160,18 @@ impl VibrantWindow {
         let imp = self.imp();
         let provider = gtk::CssProvider::new();
 
+        let gradient_type = GradientType::from(imp.gradient_combo.selected());
+        let degree = imp.direction_combo.selected() as u16 * 90;
+
+        let gradient = match gradient_type {
+            GradientType::Linear => format!("linear-gradient({}deg,", degree),
+            GradientType::Radial => "radial-gradient(".to_owned(),
+            GradientType::Conic => format!("conic-gradient(from {}deg,", degree),
+        };
+
         let css = format!(
-            ".gradient-box {{background: linear-gradient({}deg, {}, {});}}",
-            imp.direction_combo.selected() as u16 * 90,
+            ".gradient-box {{background: {} {}, {});}}",
+            gradient,
             imp.color_one_entry.text(),
             imp.color_two_entry.text()
         );
