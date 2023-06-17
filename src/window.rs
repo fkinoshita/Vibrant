@@ -18,6 +18,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+use gettextrs::gettext;
 use glib::clone;
 
 use gtk::prelude::*;
@@ -82,6 +83,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            Self::Type::bind_template_callbacks(klass);
         }
 
         fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
@@ -101,6 +103,7 @@ glib::wrapper! {
         @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, adw::ApplicationWindow,        @implements gio::ActionGroup, gio::ActionMap;
 }
 
+#[gtk::template_callbacks]
 impl VibrantWindow {
     pub fn new<P: glib::IsA<gtk::Application>>(application: &P) -> Self {
         let win: VibrantWindow = glib::Object::builder()
@@ -156,6 +159,16 @@ impl VibrantWindow {
                 this.update_gradient();
             }),
         );
+    }
+
+    #[template_callback]
+    pub fn copy_css(&self, _button: gtk::Button) {
+        let clipboard = self.clipboard();
+        clipboard.set_text(&self.generate_css());
+
+        self.imp()
+            .toast_overlay
+            .add_toast(adw::Toast::new(&gettext("Copied CSS to clipboard")))
     }
 
     fn generate_css(&self) -> String {
