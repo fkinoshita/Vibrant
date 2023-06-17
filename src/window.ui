@@ -104,16 +104,31 @@
                         <child>
                           <object class="AdwPreferencesGroup">
                             <property name="title" translatable="yes">Colors</property>
-
                             <child>
-                              <object class="AdwEntryRow" id="color_one_entry">
+                              <object class="AdwActionRow">
                                 <property name="title" translatable="yes" context="Color in a list">Color 1</property>
+                                <property name="activatable-widget">color_one_button</property>
+                                <child type="suffix">
+                                  <object class="GtkColorDialog" id="color_one_dialog"></object>
+                                  <object class="GtkColorDialogButton" id="color_one_button">
+                                    <property name="valign">center</property>
+                                    <property name="dialog">color_one_dialog</property>
+                                  </object>
+                                </child>
                               </object>
                             </child>
 
                             <child>
-                              <object class="AdwEntryRow" id="color_two_entry">
+                              <object class="AdwActionRow">
                                 <property name="title" translatable="yes" context="Color in a list">Color 2</property>
+                                <property name="activatable-widget">color_two_button</property>
+                                <child type="suffix">
+                                  <object class="GtkColorDialog" id="color_two_dialog"></object>
+                                  <object class="GtkColorDialogButton" id="color_two_button">
+                                    <property name="valign">center</property>
+                                    <property name="dialog">color_two_dialog</property>
+                                  </object>
+                                </child>
                               </object>
                             </child>
 

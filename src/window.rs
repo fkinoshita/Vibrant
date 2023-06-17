@@ -20,7 +20,7 @@
 
 use glib::clone;
 
-use gtk::prelude::*;
+use gtk::{gdk, prelude::*};
 use gtk::{gio, glib};
 
 use adw::prelude::*;
@@ -49,9 +49,9 @@ mod imp {
         pub direction_combo: TemplateChild<adw::ComboRow>,
 
         #[template_child]
-        pub color_one_entry: TemplateChild<adw::EntryRow>,
+        pub color_one_button: TemplateChild<gtk::ColorDialogButton>,
         #[template_child]
-        pub color_two_entry: TemplateChild<adw::EntryRow>,
+        pub color_two_button: TemplateChild<gtk::ColorDialogButton>,
     }
 
     #[glib::object_subclass]
@@ -100,8 +100,8 @@ impl VibrantWindow {
             self.add_css_class("devel");
         }
 
-        imp.color_one_entry.set_text("blue");
-        imp.color_two_entry.set_text("pink");
+        imp.color_one_button.set_rgba(&gdk::RGBA::BLUE);
+        imp.color_two_button.set_rgba(&gdk::RGBA::WHITE);
         self.update_gradient();
     }
 
@@ -115,19 +115,15 @@ impl VibrantWindow {
             }),
         );
 
-        imp.color_one_entry.connect_notify_local(
-            Some("text"),
-            clone!(@strong self as this => move |_entry, _| {
+        imp.color_one_button
+            .connect_rgba_notify(clone!(@strong self as this => move |_| {
                 this.update_gradient();
-            }),
-        );
+            }));
 
-        imp.color_two_entry.connect_notify_local(
-            Some("text"),
-            clone!(@strong self as this => move |_entry, _| {
+        imp.color_two_button
+            .connect_rgba_notify(clone!(@strong self as this => move |_| {
                 this.update_gradient();
-            }),
-        );
+            }));
     }
 
     fn update_gradient(&self) {
