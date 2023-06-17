@@ -158,9 +158,8 @@ impl VibrantWindow {
         );
     }
 
-    fn update_gradient(&self) {
+    fn generate_css(&self) -> String {
         let imp = self.imp();
-        let provider = gtk::CssProvider::new();
 
         let gradient_type = GradientType::from(imp.gradient_combo.selected());
         let degree = imp.direction_combo.selected() as u16 * 90;
@@ -175,14 +174,17 @@ impl VibrantWindow {
             ),
         };
 
-        let css = format!(
+        format!(
             ".gradient-box {{background: {} {}, {});}}",
             gradient,
             imp.color_one_entry.text(),
             imp.color_two_entry.text()
-        );
+        )
+    }
 
-        provider.load_from_data(css.as_str());
+    fn update_gradient(&self) {
+        let provider = gtk::CssProvider::new();
+        provider.load_from_data(&self.generate_css());
 
         self.imp()
             .gradient_box
