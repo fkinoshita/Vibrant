@@ -137,15 +137,15 @@ impl VibrantWindow {
         let css = format!(
             ".gradient-box {{background: linear-gradient({}deg, {}, {});}}",
             imp.direction_combo.selected() as u16 * 90,
-            imp.color_one_entry.text(),
-            imp.color_two_entry.text()
+            imp.color_one_button.rgba(),
+            imp.color_two_button.rgba()
         );
 
         provider.load_from_data(css.as_str());
 
-        self.imp()
-            .gradient_box
-            .style_context()
-            .add_provider(&provider, 1000);
+        if let Some(display) = gtk::gdk::Display::default() {
+            #[allow(deprecated)] //https://github.com/gtk-rs/gtk4-rs/issues/1317
+            gtk::StyleContext::add_provider_for_display(&display, &provider, 1000);
+        }
     }
 }
