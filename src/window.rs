@@ -101,7 +101,8 @@ impl VibrantWindow {
         }
 
         imp.color_one_button.set_rgba(&gdk::RGBA::BLUE);
-        imp.color_two_button.set_rgba(&gdk::RGBA::WHITE);
+        imp.color_two_button
+            .set_rgba(&gdk::RGBA::new(1.0, 0.75, 0.8, 1.0));
         self.update_gradient();
     }
 
