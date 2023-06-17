@@ -131,7 +131,7 @@ impl VibrantWindow {
         imp.gradient_combo.connect_selected_item_notify(
             clone!(@strong self as this => move |combo| {
                 //disable when gradient is radial, as it does effect anything
-                this.imp().direction_combo.set_activatable(combo.selected() != 1);
+                this.imp().direction_combo.set_sensitive(combo.selected() != 1);
                 this.update_gradient();
             }),
         );
