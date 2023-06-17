@@ -81,6 +81,24 @@
                             <property name="title" translatable="yes">Properties</property>
 
                             <child>
+                              <object class="AdwComboRow" id="gradient_combo">
+                                <property name="title" translatable="yes">Gradient type</property>
+
+                                <property name="model">
+                                  <object class="GtkStringList">
+                                    <items>
+                                      <item translatable="yes">Linear</item>
+                                      <item translatable="yes">Radient</item>
+                                      <item translatable="yes">Conic</item>
+                                    </items>
+                                  </object>
+                                </property>
+
+                              </object>
+                            </child>
+
+
+                            <child>
                               <object class="AdwComboRow" id="direction_combo">
                                 <property name="title" translatable="yes">Direction</property>
 
