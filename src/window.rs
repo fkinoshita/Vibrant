@@ -140,8 +140,7 @@ impl VibrantWindow {
         provider.load_from_data(css.as_str());
 
         if let Some(display) = gtk::gdk::Display::default() {
-            #[allow(deprecated)] //https://github.com/gtk-rs/gtk4-rs/issues/1317
-            gtk::StyleContext::add_provider_for_display(&display, &provider, 1000);
+            gtk::style_context_add_provider_for_display(&display, &provider, 1000);
         }
     }
 }
