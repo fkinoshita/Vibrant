@@ -64,6 +64,7 @@
 
                             <property name="child">
                               <object class="GtkBox" id="gradient_box">
+                                <property name="height-request">120</property>
                                 <property name="hexpand">true</property>
                                 <property name="vexpand">true</property>
 
