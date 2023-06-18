@@ -27,9 +27,11 @@
                             <child>
                               <object class="AdwButtonContent">
                                 <property name="label" translatable="yes">Generate CSS</property>
-                                <property name="icon-name">arrow-into-box-symbolic</property>
+                                <property name="icon-name">edit-copy-symbolic</property>
                               </object>
                             </child>
+
+                            <signal name="clicked" handler="copy_css" swapped="true" />
 
                           </object>
                         </child>
