@@ -57,7 +57,7 @@ mod imp {
         #[template_child]
         pub toast_overlay: TemplateChild<adw::ToastOverlay>,
         #[template_child]
-        pub navigation_view: TemplateChild<adw::NavigationView>,
+        pub navigation_view: TemplateChild<adw::OverlaySplitView>,
 
         #[template_child]
         pub gradient_box: TemplateChild<gtk::Box>,
