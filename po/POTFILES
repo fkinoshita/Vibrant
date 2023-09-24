@@ -1,4 +1,4 @@
-data/io.github.fkinoshita.Vibrant.desktop.in
-data/io.github.fkinoshita.Vibrant.metainfo.xml.in
-data/io.github.fkinoshita.Vibrant.gschema.xml
+data/com.felipekinoshita.Vibrant.desktop.in
+data/com.felipekinoshita.Vibrant.metainfo.xml.in
+data/com.felipekinoshita.Vibrant.gschema.xml
 src/window.ui

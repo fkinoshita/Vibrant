@@ -1,5 +1,5 @@
 <h1 align="center">
-  <!-- <img src="data/icons/hicolor/scalable/apps/io.github.fkinoshita.Vibrant.svg" alt="Vibrant Icon" width="192" height="192"/> -->
+  <!-- <img src="data/icons/hicolor/scalable/apps/com.felipekinoshita.Vibrant.svg" alt="Vibrant Icon" width="192" height="192"/> -->
   <br>
   Vibrant
 </h1>

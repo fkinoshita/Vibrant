@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="vibrant">
-	<schema id="io.github.fkinoshita.Vibrant" path="/io/github/fkinoshita/Vibrant/">
+	<schema id="com.felipekinoshita.Vibrant" path="/com/felipekinoshita/Vibrant/">
 	</schema>
 </schemalist>

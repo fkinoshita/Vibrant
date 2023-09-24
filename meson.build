@@ -7,7 +7,7 @@ project('vibrant', 'rust',
 i18n = import('i18n')
 gnome = import('gnome')
 
-project_id = 'io.github.fkinoshita.Vibrant'
+project_id = 'com.felipekinoshita.Vibrant'
 
 # Profiles
 application_id = project_id

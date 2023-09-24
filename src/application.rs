@@ -103,7 +103,7 @@ impl VibrantApplication {
         let about = adw::AboutWindow::builder()
             .transient_for(&window)
             .application_name("Vibrant")
-            .application_icon("io.github.fkinoshita.Vibrant")
+            .application_icon("com.felkipekinoshita.Vibrant")
             .developer_name("Felipe Kinoshita")
             .comments(gettext("Generate CSS gradients"))
             .license_type(gtk::License::Gpl30)

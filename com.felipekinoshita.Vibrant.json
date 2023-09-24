@@ -1,5 +1,5 @@
 {
-    "app-id": "io.github.fkinoshita.Vibrant",
+    "app-id": "com.felipekinoshita.Vibrant",
     "runtime": "org.gnome.Platform",
     "runtime-version": "45",
     "sdk": "org.gnome.Sdk",

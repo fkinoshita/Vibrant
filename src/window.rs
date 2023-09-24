@@ -51,7 +51,7 @@ mod imp {
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
-    #[template(resource = "/io/github/fkinoshita/Vibrant/window.ui")]
+    #[template(resource = "/com/felipekinoshita/Vibrant/window.ui")]
     pub struct VibrantWindow {
         // Template widgets
         #[template_child]

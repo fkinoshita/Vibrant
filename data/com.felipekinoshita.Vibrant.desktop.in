@@ -2,7 +2,7 @@
 Name=Vibrant
 Comment=A CSS gradient generator for GNOME
 Exec=vibrant
-Icon=io.github.fkinoshita.Vibrant
+Icon=com.felipekinoshita.Vibrant
 Terminal=false
 Type=Application
 Categories=GTK;
