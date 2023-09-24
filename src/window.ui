@@ -3,7 +3,7 @@
   <template class="VibrantWindow" parent="AdwApplicationWindow">
     <property name="title">Vibrant</property>
     <property name="default-width">800</property>
-    <property name="default-height">650</property>
+    <property name="default-height">550</property>
 
     <child>
       <object class="AdwToastOverlay" id="toast_overlay">
